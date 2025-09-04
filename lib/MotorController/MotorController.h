@@ -23,6 +23,13 @@
 #define MOTOR_HOLD_CURRENT  60
 #define MICROSTEPS          16
 
+// Direction definitions (0 or 1)
+#define DIR_1 0
+#define DIR_2 1
+#define DIR_3 1
+#define DIR_4 0
+#define DIR_5 0
+
 class MotorController 
 {
     private:
@@ -33,8 +40,9 @@ class MotorController
         int dirPins[NUM_MOTORS];
         int positions[NUM_MOTORS];
         int targets[NUM_MOTORS];
+        bool dirs[NUM_MOTORS];
         unsigned long lastMovements[NUM_MOTORS];
-        
+
         // Private methods
         bool isValidMotorIndex(int motorIndex);
 
@@ -46,6 +54,8 @@ class MotorController
         void begin();
         void update();
         void setTarget(int motorIndex, int targetPosition);
+        int getTarget(int motorIndex);
+        int getPosition(int motorIndex);
         void printPosition(int motorIndex);
         void printPositions();
 };

@@ -23,6 +23,12 @@ MotorController::MotorController() : driver(&Serial2, 0.11f, 0b00)
         targets[i] = 0;
         lastMovements[i] = 0;
     }
+
+    dirs[0] = DIR_1;
+    dirs[1] = DIR_2;
+    dirs[2] = DIR_3;
+    dirs[3] = DIR_4;
+    dirs[4] = DIR_5;
 }
 
 void MotorController::begin() 
@@ -76,12 +82,12 @@ void MotorController::update()
         {
             if (targets[i] > positions[i]) 
             {
-                digitalWrite(dirPins[i], HIGH);
+                digitalWrite(dirPins[i], dirs[i] ? HIGH : LOW);
                 positions[i]++;
             }
             else 
             {
-                digitalWrite(dirPins[i], LOW);
+                digitalWrite(dirPins[i], dirs[i] ? LOW : HIGH);
                 positions[i]--;
             }
             delayMicroseconds(1);
@@ -101,6 +107,22 @@ void MotorController::setTarget(int motorIndex, int targetPosition)
         return;
         
     targets[motorIndex] = constrain(targetPosition, 0, MAX_STEPS);
+}
+
+int MotorController::getTarget(int motorIndex) 
+{
+    if (!isValidMotorIndex(motorIndex))
+        return 0;
+
+    return targets[motorIndex];
+}
+
+int MotorController::getPosition(int motorIndex) 
+{
+    if (!isValidMotorIndex(motorIndex))
+        return 0;
+
+    return positions[motorIndex];
 }
 
 void MotorController::printPosition(int motorIndex) 
