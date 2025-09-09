@@ -1,8 +1,8 @@
 #include <VanBus.h>
 
 // Pin definitions for ESP32-S3 with SN65HVD230
-#define VAN_RX_PIN 2
-#define VAN_TX_PIN 3
+#define VAN_RX_PIN 4
+#define VAN_TX_PIN 5
 
 // VAN packet identifiers for Peugeot 307 (based on PSAVanCanBridge research)
 #define ENGINE_STATUS_IDEN 0x824     // Engine RPM, temperature, etc.
